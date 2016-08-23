@@ -46,6 +46,8 @@ using [Docker for Mac](https://docs.docker.com/engine/installation/mac/).
 
 * Install [Docker](https://docs.docker.com/).
 
+Remember that your user should have ... adduser your_username docker
+
 * Clone the Politikon repository from [https://github.com/KlubJagiellonski/Politikon](GitHub).
 ```
 $ git clone git@github.com:KlubJagiellonski/Politikon.git
