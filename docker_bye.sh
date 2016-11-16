@@ -4,6 +4,8 @@ NAME='politikon'
 DB_NAME='politikon_db'
 PSQL_VER='postgres:latest'
 NODE_NAME='politikon_instance'
+CELERY_NAME='politikon_celery'
+CELERY_REDIS_NAME='politikon_celery_redis'
 DOCKER_RUN='./docker_run.sh'
 
 function pri {
@@ -20,6 +22,17 @@ else
     pri 'db' "stopping $DB_NAME..."
     docker stop $DB_NAME
 fi
+
+##
+#docker run --name some-redis -d redis
+## persistance mode
+#docker run --name some-redis -d redis redis-server --appendonly yes
+
+#docker run --link some-redis:redis -e CELERY_BROKER_URL=redis://redis --name some-celery -d celery
+
+docker run --name some-app --link some-redis:redis -d application-that-uses-redis
+
+
 
 if   ! docker ps -a | grep $NODE_NAME >/dev/null; then
     pri 'vm' "$NODE_NAME do not exist - did you run $DOCKER_RUN ?"
